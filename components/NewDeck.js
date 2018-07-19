@@ -22,9 +22,20 @@ class NewDeck extends Component {
         }))
     }
     submit = () => {
+        let input = this.state.input
 
-        submitDeck(this.state.input);
-        this.props.navigation.navigate('ListDecks', {})
+        submitDeck(input).then(() => {
+            this.props.dispatch(addDeck({
+                [input]: {
+                    title: input,
+                    questions: [],
+                }
+            }))
+            this.setState(() => ({
+                input: ""
+            }))
+            this.props.navigation.navigate('ListDecks', {})
+        })
     }
     render() {
         const { input } = this.state
