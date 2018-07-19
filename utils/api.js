@@ -20,7 +20,7 @@ let data = {
         title: 'JavaScript',
         questions: [
             {
-                question: 'What is a closure?',
+                question: 'What is a closure? ',
                 answer: 'The combination of a function and the lexical environment within which that function was declared.'
             }
         ]
@@ -29,6 +29,18 @@ let data = {
 
 export const getDecks = () => {
     return AsyncStorage.getItem(storageKey).then(results => {
-        return (results) ? JSON.parse(results) : data()
+        return (results) ? JSON.parse(results) : data
+    })
+}
+
+export function submitDeck (title) {
+    return getDecks().then((decks) => {
+        if (!decks[title]) {
+            decks[title] = {
+                title,
+                questions: []
+            }
+            AsyncStorage.setItem(storageKey, JSON.stringify(decks))
+        }
     })
 }
