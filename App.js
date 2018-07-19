@@ -3,13 +3,16 @@ import { StyleSheet, Text, View } from 'react-native'
 import ListDecks from './components/ListDecks'
 import NewDeck from './components/NewDeck'
 import { createBottomTabNavigator } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 const Tabs = createBottomTabNavigator(
     {
         ListDecks: {
             screen: ListDecks,
             navigationOptions: {
-                tabBarLabel: "DECKS"
+                tabBarLabel: "LIST DECKS"
             }
         },
         NewDeck: {
@@ -45,7 +48,9 @@ const Tabs = createBottomTabNavigator(
 export default class App extends React.Component {
   render() {
     return (
-        <Tabs />
+        <Provider store={createStore(reducer)}>
+            <Tabs />
+        </Provider>
     )
   }
 }
