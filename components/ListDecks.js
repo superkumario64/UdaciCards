@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated } from 'react-native'
 import { getDecks } from "../utils/api";
 import { connect } from 'react-redux'
 import {receiveDecks} from "../actions";
 
 class ListDecks extends Component {
     state = {
+        bounceValue: new Animated.Value(1)
     }
 
     componentDidMount() {
@@ -14,18 +15,29 @@ class ListDecks extends Component {
             .then((decks) => dispatch(receiveDecks(decks)))
     }
 
+    pressAction(deck) {
+        const { bounceValue } = this.state
+        Animated.sequence([
+            Animated.timing(bounceValue, { duration: 100, toValue: 1.4 }),
+            Animated.spring(bounceValue, { toValue: 1, friction: 4})
+        ]).start(() => {
+            this.props.navigation.navigate('DeckView', {title: deck.title})
+        })
+    }
+
     render() {
         const { decks } = this.props
+        const { bounceValue } = this.state
         return (
             <ScrollView style={styles.container}>
                 {
                     Object.keys(decks).map(deck => {
                         return (
                             <View key={decks[deck].title}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => {this.pressAction(decks[deck])}}>
                                     <View style={styles.box}>
-                                        <Text style={styles.text}>{decks[deck].title}</Text>
-                                        <Text style={styles.length}>{decks[deck].questions.length} cards</Text>
+                                        <Animated.Text style={[styles.text, {transform: [{scale: bounceValue}]}]}>{decks[deck].title}</Animated.Text>
+                                        <Animated.Text style={[styles.length, {transform: [{scale: bounceValue}]}]}>{decks[deck].questions.length} cards</Animated.Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
