@@ -37,7 +37,7 @@ class ListDecks extends Component {
                                 <TouchableOpacity onPress={() => {this.pressAction(decks[deck])}}>
                                     <View style={styles.box}>
                                         <Animated.Text style={[styles.text, {transform: [{scale: bounceValue}]}]}>{decks[deck].title}</Animated.Text>
-                                        <Animated.Text style={[styles.length, {transform: [{scale: bounceValue}]}]}>{decks[deck].questions.length} cards</Animated.Text>
+                                        <Animated.Text style={[{transform: [{scale: bounceValue}]}]}>{decks[deck].questions.length} cards</Animated.Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -63,9 +63,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20
-    },
-    length: {
-
     }
 })
 
