@@ -7,6 +7,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import DeckView from "./components/DeckView"
+import AddCard from "./components/AddCard";
 
 const Tabs = createBottomTabNavigator(
     {
@@ -53,6 +54,16 @@ const MainNavigator = createStackNavigator({
     },
     DeckView: {
         screen: DeckView,
+        navigationOptions: {
+            headerTintColor: "white",
+            headerStyle: {
+                backgroundColor: "purple",
+            },
+            showBack: true
+        }
+    },
+    AddCard: {
+        screen: AddCard,
         navigationOptions: {
             headerTintColor: "white",
             headerStyle: {
