@@ -17,12 +17,42 @@ class QuizView extends Component {
         title: "Quiz"
     }
 
-    handleAnswerClick = () => {
+    handleAnswerPress = () => {
         let { show_answer } = this.state
         show_answer = !show_answer
         this.setState(() => ({
             show_answer
         }))
+    }
+
+    handleCorrectPress = () => {
+        let { answered_correctly, question_number } = this.state
+        answered_correctly++
+        question_number++
+        this.setState(() => ({
+            answered_correctly,
+            question_number
+        }))
+    }
+
+    handleIncorrectPress = () => {
+        let { question_number} = this.state
+        question_number++
+        this.setState(() => ({
+            question_number
+        }))
+    }
+
+    handleRestartPress = () => {
+        this.setState(() => ({
+            question_number: 0,
+            answered_correctly: 0,
+            show_answer: true
+        }))
+    }
+
+    handleBackPress = () => {
+        this.props.navigation.goBack()
     }
 
     render(){
@@ -31,6 +61,17 @@ class QuizView extends Component {
         const { question_number, answered_correctly, show_answer } = this.state
 
         let deck = decks[title];
+
+        if (question_number === deck.questions.length) {
+            return (
+                <View style={styles.container}>
+                    <Text style={[styles.center, styles.complete]}>Complete</Text>
+                    <Text style={styles.results}>{answered_correctly} of {deck.questions.length} answered correctly</Text>
+                    <TextButton style={styles.restart} onPress={() => {this.handleRestartPress()}}>Restart</TextButton>
+                    <TextButton style={styles.back}  onPress={() => {this.props.navigation.goBack()}}>Back</TextButton>
+                </View>
+            )
+        }
         return (
             <View style={styles.container}>
                 <Text style={styles.current_question}>{ question_number + 1 }/{ deck.questions.length }</Text>
@@ -44,7 +85,7 @@ class QuizView extends Component {
                                 deck.questions[question_number].answer
                         }
                     </Text>
-                    <TextButton onPress={() => {this.handleAnswerClick()}}>
+                    <TextButton onPress={() => {this.handleAnswerPress()}}>
                         {
                             show_answer ?
                                 "Answer"
@@ -52,6 +93,18 @@ class QuizView extends Component {
                                 "Hide Answer"
                         }
 
+                    </TextButton>
+                    <TextButton
+                        style={styles.correct}
+                        onPress={() => {this.handleCorrectPress()}}
+                    >
+                        Correct
+                    </TextButton>
+                    <TextButton
+                        style={styles.incorrect}
+                        onPress={() => {this.handleIncorrectPress()}}
+                    >
+                        Incorrect
                     </TextButton>
                 </View>
             </View>
@@ -74,6 +127,30 @@ const styles = StyleSheet.create({
         paddingTop: 75,
         fontSize: 50,
         textAlign: 'center',
+    },
+    correct: {
+        paddingTop: 100,
+        color: 'green'
+    },
+    incorrect: {
+        paddingTop: 50,
+        color: 'red'
+    },
+    complete: {
+        textAlign: 'center',
+        paddingTop: 50,
+        fontSize: 45
+    },
+    results: {
+        textAlign: 'center',
+        paddingTop: 20,
+        fontSize: 25
+    },
+    restart: {
+        paddingTop: 20
+    },
+    back: {
+        paddingTop: 10
     }
 })
 
