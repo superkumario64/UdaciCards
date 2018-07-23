@@ -7,6 +7,8 @@ import {
     TextInput
 } from 'react-native'
 import TextButton from "./TextButton"
+import { addCard } from "../actions";
+import { addCardDB } from "../utils/api";
 
 class AddCard extends Component {
     state = {
@@ -26,8 +28,16 @@ class AddCard extends Component {
             answer
         }))
     }
+    handleAddCard = (title) => {
+        const { question, answer } = this.state
+        addCardDB(title, { question, answer }).then((decks) => {
+            this.props.dispatch(addCard(title, {question, answer}))
+            this.props.navigation.goBack()
+        })
+    }
     render() {
         const { question, answer } = this.state
+        const { title } = this.props.navigation.state.params
         return (
             <View style={styles.container}>
                 <TextInput
@@ -42,7 +52,7 @@ class AddCard extends Component {
                     placeholder={"Answer"}
                     style={styles.answer}
                 />
-                <TextButton>Submit</TextButton>
+                <TextButton onPress={() => this.handleAddCard(title)}>Submit</TextButton>
             </View>
         )
     }

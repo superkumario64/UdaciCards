@@ -26,7 +26,7 @@ class DeckView extends Component {
                 <Text style={styles.length}>{deck.questions.length} cards</Text>
                 <TextButton
                     style={styles.add}
-                    onPress={() => ( this.props.navigation.navigate('AddCard', {}) )}
+                    onPress={() => ( this.props.navigation.navigate('AddCard', { title }) )}
                 >Add Card</TextButton>
                 {
                     deck.questions.length > 0 ?

@@ -68,3 +68,11 @@ export function submitDeck (title) {
         }
     })
 }
+
+export function addCardDB(title, question) {
+    return getDecks().then((decks) => {
+        decks[title].questions.push(question)
+        AsyncStorage.setItem(storageKey, JSON.stringify(decks))
+        return decks
+    })
+}
