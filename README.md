@@ -1,5 +1,9 @@
 ## Installation instructions
-* ``
+* `git clone https://github.com/superkumario64/UdaciCards.git`
+* `cd UdaciCards`
+* `yarn install`
+* `yarn start`
+* hit `i` to start app in ios simulator
 
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
