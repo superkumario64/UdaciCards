@@ -4,6 +4,7 @@
 * `yarn install`
 * `yarn start`
 * hit `i` to start app in ios simulator
+(this app was tested on a iPhone X simulator running 11.4)
 
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
