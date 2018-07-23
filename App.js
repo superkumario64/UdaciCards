@@ -9,6 +9,7 @@ import reducer from './reducers'
 import DeckView from "./components/DeckView"
 import AddCard from "./components/AddCard";
 import QuizView from "./components/QuizView";
+import { setLocalNotification } from "./utils/helpers";
 
 const Tabs = createBottomTabNavigator(
     {
@@ -86,13 +87,16 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
-  render() {
-    return (
-        <Provider store={createStore(reducer)}>
-            <MainNavigator />
-        </Provider>
-    )
-  }
+    componentDidMount () {
+        setLocalNotification()
+    }
+    render() {
+        return (
+            <Provider store={createStore(reducer)}>
+                <MainNavigator />
+            </Provider>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

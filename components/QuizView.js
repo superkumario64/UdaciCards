@@ -6,6 +6,7 @@ import {
     StyleSheet,
 } from 'react-native'
 import TextButton from "./TextButton";
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers"
 
 class QuizView extends Component {
     state = {
@@ -51,8 +52,9 @@ class QuizView extends Component {
         }))
     }
 
-    handleBackPress = () => {
-        this.props.navigation.goBack()
+    componentDidMount(){
+        clearLocalNotification()
+            .then(setLocalNotification)
     }
 
     render(){
