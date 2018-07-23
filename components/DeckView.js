@@ -30,7 +30,10 @@ class DeckView extends Component {
                 >Add Card</TextButton>
                 {
                     deck.questions.length > 0 ?
-                        (<TextButton style={styles.start}>Start Quiz</TextButton>)
+                        (<TextButton
+                            style={styles.start}
+                            onPress={() => ( this.props.navigation.navigate('QuizView', { title }) )}
+                        >Start Quiz</TextButton>)
                         : ""
                 }
             </View>

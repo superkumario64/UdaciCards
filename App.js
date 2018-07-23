@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import DeckView from "./components/DeckView"
 import AddCard from "./components/AddCard";
+import QuizView from "./components/QuizView";
 
 const Tabs = createBottomTabNavigator(
     {
@@ -64,6 +65,16 @@ const MainNavigator = createStackNavigator({
     },
     AddCard: {
         screen: AddCard,
+        navigationOptions: {
+            headerTintColor: "white",
+            headerStyle: {
+                backgroundColor: "purple",
+            },
+            showBack: true
+        }
+    },
+    QuizView: {
+        screen: QuizView,
         navigationOptions: {
             headerTintColor: "white",
             headerStyle: {
