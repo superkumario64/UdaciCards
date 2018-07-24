@@ -34,7 +34,7 @@ class NewDeck extends Component {
             this.setState(() => ({
                 input: ""
             }))
-            this.props.navigation.navigate('ListDecks', {})
+            this.props.navigation.navigate('DeckView', { title: input })
         })
     }
     render() {
