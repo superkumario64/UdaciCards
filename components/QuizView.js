@@ -32,7 +32,8 @@ class QuizView extends Component {
         question_number++
         this.setState(() => ({
             answered_correctly,
-            question_number
+            question_number,
+            show_answer: true
         }))
     }
 
@@ -40,7 +41,8 @@ class QuizView extends Component {
         let { question_number} = this.state
         question_number++
         this.setState(() => ({
-            question_number
+            question_number,
+            show_answer: true
         }))
     }
 
